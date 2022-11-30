@@ -24,7 +24,7 @@ class Interpolate
         String filename = scan.nextLine();
         File myFile = new File(filename);
         Scanner inputFile = new Scanner(myFile);
-        
+
         String[] xSplit = inputFile.nextLine().split(" ");
         String[] fxSplit = inputFile.nextLine().split(" ");
         xValues = new double[xSplit.length];
@@ -34,6 +34,25 @@ class Interpolate
         {
             xValues[i] = Double.parseDouble(xSplit[i]);
             fxValues[i] = Double.parseDouble(fxSplit[i]);
+        }
+    }
+
+    public void dividedDifference(double[] x, double[] fx)
+    {
+        int i, j;
+        int n = x.length;
+        double[][] a = new double[n][n];
+
+        for(i = 0; i < n; i++)
+        {
+            a[i][0] = fx[i];
+        }
+        for(j = 1; j < n; j++)
+        {
+            for(i = 0; i < n-j; i++)
+            {
+                a[i][j] = (a[i+1][j-1] - a[i][j-1]) / (x[i+j] - x[i]);
+            }
         }
     }
 }
