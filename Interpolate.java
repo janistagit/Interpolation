@@ -4,7 +4,6 @@
  * CS3010.02 Fall 2022
  * Dr. Lajpat Rai Raheja
  */
-import java.util.Arrays;
 import java.util.Scanner;
 import java.io.File;
 import java.io.IOException;
@@ -39,6 +38,7 @@ class Interpolate
 
         double[][] a = dividedDifference(xValues, fxValues);
         printNewton(a, xValues);
+        lagrange(xValues, fxValues);
         
     }
 
@@ -109,6 +109,59 @@ class Interpolate
             }
             System.out.print(" ");
             counter++;
+        }
+    }
+
+    public static void lagrange(double[] x, double[] fx)
+    {
+        double calc, xi;
+        double mult;
+        double[] coef = new double[x.length];
+        int n = x.length;
+        System.out.println("\n\nLagrange's form:");
+
+        for(int i = 0; i < n; i++)
+        {
+            mult = 1;
+            xi = x[i];
+            calc = fx[i];
+
+            for(int j = 0; j < n; j++)
+            {
+                if(j != i)
+                {
+                    mult *= (xi - x[j]);
+                }
+            }
+
+            coef[i] = calc / mult;
+        }
+
+        for(int i = 0; i < n; i++)
+        {
+            System.out.printf("%.2f", Math.abs(coef[i]));
+
+            for(int j = 0; j < n; j++)
+            {
+                if(j != i)
+                {
+                    System.out.print("(x-");
+                    System.out.print(x[j]);
+                    System.out.print(")");
+                }
+            }
+
+            if(i < n-1)
+            {
+                if(coef[i+1] > 0)
+                {
+                    System.out.print(" + ");
+                }
+                else
+                {
+                    System.out.print(" - ");
+                }
+            }
         }
     }
 }
