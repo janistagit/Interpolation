@@ -337,11 +337,29 @@ class Interpolate
 
     static void printList( Node ptr) 
     { 
+        System.out.printf("%.2f", ptr.coeff); 
+        ptr = ptr.next;
+
         while (ptr.next != null) { 
-            System.out.printf("%.2fx^%d + ", ptr.coeff, ptr.power); 
+            if(ptr.coeff < 0)
+            {
+                System.out.printf(" - %.2fx^%d", Math.abs(ptr.coeff), ptr.power); 
+            }
+            else
+            {
+                System.out.printf(" + %.2fx^%d", ptr.coeff, ptr.power); 
+            }
     
             ptr = ptr.next; 
         } 
-        System.out.printf("%.2f\n", ptr.coeff); 
+
+        if(ptr.coeff < 0)
+        {
+            System.out.printf(" - %.2f", Math.abs(ptr.coeff)); 
+        }
+        else
+        {
+            System.out.printf(" + %.2f", ptr.coeff); 
+        }
     } 
 }
